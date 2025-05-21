@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Services\RoleService;
 
 class CompanyController extends Controller
 {
@@ -29,6 +30,11 @@ class CompanyController extends Controller
      */
     public function createBasicInfo()
     {
+        // 验证用户是否有创建公司的权限
+        if (RoleService::isReadOnly(Auth::user())) {
+            abort(403, 'You do not have permission to create companies.');
+        }
+        
         return view('dashboard.companies.create.basic_info');
     }
     
@@ -193,6 +199,11 @@ class CompanyController extends Controller
      */
     public function store()
     {
+        // 验证用户是否有创建公司的权限
+        if (RoleService::isReadOnly(Auth::user())) {
+            abort(403, 'You do not have permission to create companies.');
+        }
+        
         // 获取所有会话数据
         $basicInfo = session('company_basic_info');
         $legalInfo = session('company_legal_info', []);
@@ -242,7 +253,10 @@ class CompanyController extends Controller
         $contacts = $company->contacts;
         $documents = $company->documents;
         
-        return view('dashboard.companies.show', compact('company', 'contacts', 'documents'));
+        // 获取用户角色信息，传递给视图以控制UI显示
+        $canEdit = RoleService::canEdit(Auth::user());
+        
+        return view('dashboard.companies.show', compact('company', 'contacts', 'documents', 'canEdit'));
     }
 
     /**
@@ -251,6 +265,11 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         $this->authorize('delete', $company);
+        
+        // 验证用户是否有删除权限
+        if (RoleService::isReadOnly(Auth::user())) {
+            abort(403, 'You do not have permission to delete companies.');
+        }
         
         // 删除相关联系人
         $company->contacts()->delete();
@@ -265,50 +284,47 @@ class CompanyController extends Controller
             ->with('success', 'Company has been deleted successfully.');
     }
 
-    // 以下方法将由用户自行实现，用于公司审核流程
-    /**
-     * 审核公司申请（预留接口）
-     * 
-     * 建议实现以下功能：
-     * 1. 审核员查看待审核公司列表
-     * 2. 审核员查看公司详情
-     * 3. 审核员批准/拒绝公司申请
-     * 4. 发送邮件通知申请结果
-     * 5. 更新公司状态（approved/rejected）
-     */
+    // /**
+    //  * 审核公司申请（预留接口）
+    //  * 
+    //  * 建议实现以下功能：
+    //  * 1. 审核员查看待审核公司列表
+    //  * 2. 审核员查看公司详情
+    //  * 3. 审核员批准/拒绝公司申请
+    //  * 4. 发送邮件通知申请结果
+    //  * 5. 更新公司状态（approved/rejected）
+    //  */
     // public function approve(Company $company)
     // {
     //     // 授权检查
-    //     // $this->authorize('approve', $company);
-    //     
+    //     $this->authorize('approve', $company);
+        
     //     // 更新公司状态
-    //     // $company->update(['status' => 'approved']);
-    //     
-    //     // 发送审核通过邮件
-    //     // 创建证书/徽章等
-    //     
-    //     // 返回响应
-    //     // return redirect()->back()->with('success', '公司已审核通过');
+    //     $company->update(['status' => 'approved']);
+        
+    //     //TODO: 发送审核通过邮件
+        
+    //     return redirect()->back()->with('success', 'Company application has been approved.');
     // }
 
-    public function reject(Company $company, Request $request)
-    {
-        // 授权检查
-        $this->authorize('reject', $company);
+    // public function reject(Company $company, Request $request)
+    // {
+    //     // 授权检查
+    //     $this->authorize('reject', $company);
         
-        // 验证拒绝原因
-        $data = $request->validate(['reason' => 'required|string']);
+    //     // 验证拒绝原因
+    //     $data = $request->validate(['reason' => 'required|string']);
         
-        // 更新公司状态
-        $company->update([
-            'status' => 'rejected', 
-            'rejection_reason' => $data['reason']
-        ]);
+    //     // 更新公司状态
+    //     $company->update([
+    //         'status' => 'rejected', 
+    //         'rejection_reason' => $data['reason']
+    //     ]);
         
-        // 发送拒绝邮件
-        // TODO: 添加邮件发送逻辑
+    //     // 发送拒绝邮件
+    //     // TODO: 添加邮件发送逻辑
         
-        // 返回响应
-        return redirect()->back()->with('success', 'Company application has been rejected.');
-    }
+    //     // 返回响应
+    //     return redirect()->back()->with('success', 'Company application has been rejected.');
+    // }
 } 

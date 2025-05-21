@@ -61,4 +61,50 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Document::class);
     }
+    
+    /**
+     * 获取该用户创建的所有子账户关系
+     */
+    public function subAccounts()
+    {
+        return $this->hasMany(SubAccount::class, 'parent_id');
+    }
+    
+    /**
+     * 获取该用户作为子账户的所有关系
+     */
+    public function parentAccounts()
+    {
+        return $this->hasMany(SubAccount::class, 'user_id');
+    }
+    
+    /**
+     * 获取所有子用户
+     */
+    public function childUsers()
+    {
+        return $this->hasManyThrough(
+            User::class,
+            SubAccount::class,
+            'parent_id', // SubAccount表的外键
+            'id',        // User表的本地键
+            'id',        // 本地键
+            'user_id'    // SubAccount表的本地键
+        );
+    }
+    
+    /**
+     * 获取所有父用户
+     */
+    public function parentUsers()
+    {
+        return $this->hasManyThrough(
+            User::class,
+            SubAccount::class,
+            'user_id',   // SubAccount表的外键
+            'id',        // User表的本地键
+            'id',        // 本地键
+            'parent_id'  // SubAccount表的本地键
+        );
+    }
 }

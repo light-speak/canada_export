@@ -5,6 +5,7 @@ use App\Http\Controllers\GuidanceCenterController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -40,27 +41,53 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     // Company Management Routes
     Route::prefix('companies')->name('companies.')->group(function () {
+        // 查看公司列表 - 所有角色都可以访问
         Route::get('/', [CompanyController::class, 'index'])->name('index');
         
-        // Company Creation Flow
-        Route::get('/create/basic-info', [CompanyController::class, 'createBasicInfo'])->name('create.basic_info');
-        Route::post('/create/basic-info', [CompanyController::class, 'storeBasicInfo'])->name('store.basic_info');
-        
-        Route::get('/create/legal-info', [CompanyController::class, 'createLegalInfo'])->name('create.legal_info');
-        Route::post('/create/legal-info', [CompanyController::class, 'storeLegalInfo'])->name('store.legal_info');
-        
-        Route::get('/create/contacts', [CompanyController::class, 'createContacts'])->name('create.contacts');
-        Route::post('/create/contacts', [CompanyController::class, 'storeContacts'])->name('store.contacts');
-        
-        Route::get('/create/documents', [CompanyController::class, 'createDocuments'])->name('create.documents');
-        Route::post('/create/documents', [CompanyController::class, 'storeDocuments'])->name('store.documents');
-        
-        Route::get('/create/summary', [CompanyController::class, 'createSummary'])->name('create.summary');
-        Route::post('/create', [CompanyController::class, 'store'])->name('store');
-        
+        // 查看单个公司 - 所有角色都可以访问
         Route::get('/{company}', [CompanyController::class, 'show'])->name('show');
-        Route::delete('/{company}', [CompanyController::class, 'destroy'])->name('destroy');
-        Route::post('/{company}/reject', [CompanyController::class, 'reject'])->name('reject');
+        
+        // 创建和删除公司 - 只有admin和user角色可以访问
+        Route::middleware(['role:admin,user'])->group(function() {
+            // Company Creation Flow
+            Route::get('/create/basic-info', [CompanyController::class, 'createBasicInfo'])->name('create.basic_info');
+            Route::post('/create/basic-info', [CompanyController::class, 'storeBasicInfo'])->name('store.basic_info');
+            
+            Route::get('/create/legal-info', [CompanyController::class, 'createLegalInfo'])->name('create.legal_info');
+            Route::post('/create/legal-info', [CompanyController::class, 'storeLegalInfo'])->name('store.legal_info');
+            
+            Route::get('/create/contacts', [CompanyController::class, 'createContacts'])->name('create.contacts');
+            Route::post('/create/contacts', [CompanyController::class, 'storeContacts'])->name('store.contacts');
+            
+            Route::get('/create/documents', [CompanyController::class, 'createDocuments'])->name('create.documents');
+            Route::post('/create/documents', [CompanyController::class, 'storeDocuments'])->name('store.documents');
+            
+            Route::get('/create/summary', [CompanyController::class, 'createSummary'])->name('create.summary');
+            Route::post('/create', [CompanyController::class, 'store'])->name('store');
+            
+            // 删除公司
+            Route::delete('/{company}', [CompanyController::class, 'destroy'])->name('destroy');
+        });
+    });
+    
+    // Profile Routes
+    Route::prefix('profile')->name('profile.')->group(function () {
+        // 所有用户都可以访问的个人资料功能
+        Route::get('/', [ProfileController::class, 'show'])->name('show');
+        Route::put('/', [ProfileController::class, 'update'])->name('update');
+        
+        // Password Management
+        Route::get('/password', [ProfileController::class, 'editPassword'])->name('edit-password');
+        Route::put('/password', [ProfileController::class, 'updatePassword'])->name('update-password');
+        
+        // Sub-accounts Management - 只有主账户才能管理子账户
+        Route::middleware(['role'])->group(function() {
+            Route::get('/sub-accounts', [ProfileController::class, 'subAccounts'])->name('sub-accounts');
+            Route::get('/sub-accounts/create', [ProfileController::class, 'createSubAccount'])->name('create-sub-account');
+            Route::post('/sub-accounts', [ProfileController::class, 'storeSubAccount'])->name('store-sub-account');
+            Route::put('/sub-accounts/{subAccount}', [ProfileController::class, 'updateSubAccount'])->name('update-sub-account');
+            Route::delete('/sub-accounts/{subAccount}', [ProfileController::class, 'destroySubAccount'])->name('destroy-sub-account');
+        });
     });
 });
 
