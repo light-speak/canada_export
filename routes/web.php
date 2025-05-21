@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuidanceCenterController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CompanyController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -36,6 +37,31 @@ Route::post('/email/verification-notification', function (Request $request) {
 // Dashboard Routes
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/console', [DashboardController::class, 'index'])->name('console');
+    
+    // Company Management Routes
+    Route::prefix('companies')->name('companies.')->group(function () {
+        Route::get('/', [CompanyController::class, 'index'])->name('index');
+        
+        // Company Creation Flow
+        Route::get('/create/basic-info', [CompanyController::class, 'createBasicInfo'])->name('create.basic_info');
+        Route::post('/create/basic-info', [CompanyController::class, 'storeBasicInfo'])->name('store.basic_info');
+        
+        Route::get('/create/legal-info', [CompanyController::class, 'createLegalInfo'])->name('create.legal_info');
+        Route::post('/create/legal-info', [CompanyController::class, 'storeLegalInfo'])->name('store.legal_info');
+        
+        Route::get('/create/contacts', [CompanyController::class, 'createContacts'])->name('create.contacts');
+        Route::post('/create/contacts', [CompanyController::class, 'storeContacts'])->name('store.contacts');
+        
+        Route::get('/create/documents', [CompanyController::class, 'createDocuments'])->name('create.documents');
+        Route::post('/create/documents', [CompanyController::class, 'storeDocuments'])->name('store.documents');
+        
+        Route::get('/create/summary', [CompanyController::class, 'createSummary'])->name('create.summary');
+        Route::post('/create', [CompanyController::class, 'store'])->name('store');
+        
+        Route::get('/{company}', [CompanyController::class, 'show'])->name('show');
+        Route::delete('/{company}', [CompanyController::class, 'destroy'])->name('destroy');
+        Route::post('/{company}/reject', [CompanyController::class, 'reject'])->name('reject');
+    });
 });
 
 // Guidance Center Routes

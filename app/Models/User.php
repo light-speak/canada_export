@@ -45,4 +45,20 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the companies that belong to the user.
+     */
+    public function companies()
+    {
+        return $this->hasMany(Company::class);
+    }
+    
+    /**
+     * Get the documents that belong to the user.
+     */
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
 }
