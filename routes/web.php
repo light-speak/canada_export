@@ -8,6 +8,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\CertificateController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -98,4 +99,32 @@ Route::prefix('guidance-center')->group(function () {
     Route::get('/legality', [GuidanceCenterController::class, 'legality'])->name('guidance-center.legality');
     Route::get('/trade-center', [GuidanceCenterController::class, 'tradeCenter'])->name('guidance-center.trade-center');
     Route::get('/search', [GuidanceCenterController::class, 'search'])->name('guidance-center.search');
+});
+
+// Certificate Routes
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/certificates', [CertificateController::class, 'index'])->name('certificates.index');
+    
+    // Certificate Creation Flow
+    Route::prefix('certificates')->name('certificates.')->group(function () {
+        Route::get('/create/basic-info', [CertificateController::class, 'createBasicInfo'])->name('create.basic_info');
+        Route::post('/create/basic-info', [CertificateController::class, 'storeBasicInfo'])->name('store.basic_info');
+        
+        Route::get('/create/products', [CertificateController::class, 'createProducts'])->name('create.products');
+        Route::post('/create/products', [CertificateController::class, 'storeProducts'])->name('store.products');
+        
+        Route::get('/create/options', [CertificateController::class, 'createOptions'])->name('create.options');
+        Route::post('/create/options', [CertificateController::class, 'storeOptions'])->name('store.options');
+        
+        Route::get('/create/documents', [CertificateController::class, 'createDocuments'])->name('create.documents');
+        Route::post('/create/documents', [CertificateController::class, 'storeDocuments'])->name('store.documents');
+        
+        Route::get('/create/delivery', [CertificateController::class, 'createDelivery'])->name('create.delivery');
+        Route::post('/create/delivery', [CertificateController::class, 'storeDelivery'])->name('store.delivery');
+        
+        Route::get('/create/summary', [CertificateController::class, 'createSummary'])->name('create.summary');
+        Route::post('/create', [CertificateController::class, 'store'])->name('store');
+    });
+    
+    Route::get('/certificates/{certificate}', [CertificateController::class, 'show'])->name('certificates.show');
 });

@@ -5,6 +5,38 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property string $type
+ * @property string $file_name
+ * @property string $file_path
+ * @property string $mime_type
+ * @property int $size
+ * @property \Illuminate\Support\Carbon $upload_date
+ * @property int $company_id
+ * @property int $user_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Company $company
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereCompanyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereFileName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereFilePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereMimeType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereSize($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereUploadDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Document extends Model
 {
     use HasFactory;

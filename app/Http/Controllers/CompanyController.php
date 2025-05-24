@@ -79,8 +79,10 @@ class CompanyController extends Controller
             'business_licence_number' => 'nullable|string',
             'licence_expiry_date' => 'nullable|date',
             'incorporation_id' => 'nullable|string',
-            'is_manufacturer' => 'boolean',
-            'is_chamber_member' => 'boolean',
+            'company_types' => 'nullable|array',
+            'company_types.*' => 'in:manufacturer,exporter_trader',
+            'chamber_memberships' => 'nullable|array',
+            'chamber_memberships.*' => 'in:wtc_miami,fcbf',
         ]);
         
         // 保存到会话中
@@ -143,37 +145,57 @@ class CompanyController extends Controller
     public function storeDocuments(Request $request)
     {
         $request->validate([
-            'business_licence' => 'nullable|file|mimes:pdf,jpg,jpeg,png,gif,zip|max:51200',
+            'business_licence' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:51200',
+            'manufacturing_licence' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:51200',
+            'gmp_certificate' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:51200',
         ]);
         
-        // 如果上传了文件，保存信息
+        $documents = [];
+        
+        // 处理营业执照
         if ($request->hasFile('business_licence')) {
-            $file = $request->file('business_licence');
-            
-            // 使用随机文件名存储，但保留原始扩展名
-            $originalName = $file->getClientOriginalName();
-            $extension = $file->getClientOriginalExtension();
-            
-            // 文件将以随机文件名存储在 company_documents 文件夹
-            $path = $file->storeAs(
-                'company_documents', 
-                uniqid() . '_' . time() . '.' . $extension, 
-                'public'
-            );
-            
-            $document = [
-                'type' => 'business_licence',
-                'file_name' => $originalName, // 保存原始文件名用于显示
-                'file_path' => $path,
-                'mime_type' => $file->getMimeType(),
-                'size' => $file->getSize(),
-            ];
-            
-            // 保存到会话中
-            session(['company_documents' => [$document]]);
+            $documents[] = $this->processDocument($request->file('business_licence'), 'business_licence');
         }
         
+        // 如果是制造商，处理额外的文档
+        if (session('company_legal_info.company_types') && in_array('manufacturer', session('company_legal_info.company_types'))) {
+            if ($request->hasFile('manufacturing_licence')) {
+                $documents[] = $this->processDocument($request->file('manufacturing_licence'), 'manufacturing_licence');
+            }
+            
+            if ($request->hasFile('gmp_certificate')) {
+                $documents[] = $this->processDocument($request->file('gmp_certificate'), 'gmp_certificate');
+            }
+        }
+        
+        // 保存到会话中
+        session(['company_documents' => $documents]);
+        
         return redirect()->route('companies.create.summary');
+    }
+    
+    /**
+     * 处理文档上传
+     */
+    private function processDocument($file, $type)
+    {
+        $originalName = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+        
+        // 文件将以随机文件名存储在 company_documents 文件夹
+        $path = $file->storeAs(
+            'company_documents', 
+            uniqid() . '_' . time() . '.' . $extension, 
+            'public'
+        );
+        
+        return [
+            'type' => $type,
+            'file_name' => $originalName,
+            'file_path' => $path,
+            'mime_type' => $file->getMimeType(),
+            'size' => $file->getSize(),
+        ];
     }
     
     /**
@@ -214,7 +236,6 @@ class CompanyController extends Controller
         $companyData = array_merge($basicInfo, $legalInfo);
         $companyData['user_id'] = Auth::id();
         $companyData['status'] = 'pending';
-        $companyData['chamber_name'] = 'Boulder Chamber of Commerce';
         
         $company = Company::create($companyData);
         

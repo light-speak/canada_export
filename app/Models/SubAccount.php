@@ -5,6 +5,32 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property int $parent_id
+ * @property int $user_id
+ * @property string $role
+ * @property array<array-key, mixed>|null $permissions
+ * @property bool $is_active
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $parent
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubAccount newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubAccount newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubAccount query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubAccount whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubAccount whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubAccount whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubAccount whereParentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubAccount wherePermissions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubAccount whereRole($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubAccount whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubAccount whereUserId($value)
+ * @mixin \Eloquent
+ */
 class SubAccount extends Model
 {
     use HasFactory;

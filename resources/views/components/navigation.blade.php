@@ -114,9 +114,7 @@
                             </svg>
                             Console
                         </a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Your Profile</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Dashboard</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
+                        <a href="{{ route('profile.show') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Profile</a>
                         <div class="border-t border-gray-200 dark:border-gray-700"></div>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -186,9 +184,7 @@
                 </svg>
                 Console
             </a>
-            <a href="#" class="header-link mobile-menu-link" @click="mobileOpen = false">Your Profile</a>
-            <a href="#" class="header-link mobile-menu-link" @click="mobileOpen = false">Dashboard</a>
-            <a href="#" class="header-link mobile-menu-link" @click="mobileOpen = false">Settings</a>
+            <a href="#" class="header-link mobile-menu-link" @click="mobileOpen = false">Profile</a>
             <form method="POST" action="{{ route('logout') }}" class="mt-2">
                 @csrf
                 <button type="submit" class="w-full text-left px-4 py-2 text-sm text-[#FF0000] hover:text-[#CC0000] font-medium" @click="mobileOpen = false">

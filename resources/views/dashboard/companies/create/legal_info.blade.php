@@ -19,7 +19,7 @@
             <div class="bg-[#FF0000] h-2.5 rounded-full" style="width: 40%"></div>
         </div>
     </div>
-    
+
     <!-- Step Navigation -->
     <div class="flex mb-6 overflow-x-auto">
         <a href="{{ route('companies.create.basic_info') }}" class="px-4 py-2 border-b-2 border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 text-sm">
@@ -43,7 +43,7 @@
     <div class="bg-white dark:bg-[#1a1a1a] shadow-md rounded-lg p-8">
         <form action="{{ route('companies.store.legal_info') }}" method="POST">
             @csrf
-            
+
             <div class="mb-8">
                 <label for="business_licence_number" class="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Business License Number</label>
                 <input type="text" name="business_licence_number" id="business_licence_number" value="{{ old('business_licence_number', session('company_legal_info.business_licence_number')) }}" class="block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-[#121212] shadow-sm focus:border-[#FF0000] focus:ring-[#FF0000] py-3 px-4 text-base">
@@ -51,7 +51,7 @@
                     <p class="mt-2 text-sm text-[#FF0000]">{{ $message }}</p>
                 @enderror
             </div>
-            
+
             <div class="mb-8">
                 <label for="licence_expiry_date" class="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">License Expiry Date</label>
                 <input type="date" name="licence_expiry_date" id="licence_expiry_date" value="{{ old('licence_expiry_date', session('company_legal_info.licence_expiry_date')) }}" class="block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-[#121212] shadow-sm focus:border-[#FF0000] focus:ring-[#FF0000] py-3 px-4 text-base">
@@ -59,7 +59,7 @@
                     <p class="mt-2 text-sm text-[#FF0000]">{{ $message }}</p>
                 @enderror
             </div>
-            
+
             <div class="mb-8">
                 <label for="incorporation_id" class="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Incorporation ID</label>
                 <input type="text" name="incorporation_id" id="incorporation_id" value="{{ old('incorporation_id', session('company_legal_info.incorporation_id')) }}" class="block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-[#121212] shadow-sm focus:border-[#FF0000] focus:ring-[#FF0000] py-3 px-4 text-base">
@@ -67,38 +67,47 @@
                     <p class="mt-2 text-sm text-[#FF0000]">{{ $message }}</p>
                 @enderror
             </div>
-            
+
             <div class="mb-8">
                 <div class="block text-base font-medium text-gray-700 dark:text-gray-300 mb-4">Company Type</div>
                 <div class="space-y-4">
                     <div class="flex items-center">
-                        <input id="is_manufacturer_1" name="is_manufacturer" type="radio" value="1" class="h-5 w-5 text-[#FF0000] focus:ring-[#FF0000] border-gray-300" {{ old('is_manufacturer', session('company_legal_info.is_manufacturer')) == 1 ? 'checked' : '' }}>
-                        <label for="is_manufacturer_1" class="ml-3 block text-base font-medium text-gray-700 dark:text-gray-300">
+                        <input type="checkbox" name="company_types[]" value="manufacturer" id="type_manufacturer" class="h-5 w-5 text-[#FF0000] focus:ring-[#FF0000] border-gray-300 dark:border-gray-700 rounded" {{ in_array('manufacturer', old('company_types', session('company_legal_info.company_types') ?? [])) ? 'checked' : '' }}>
+                        <label for="type_manufacturer" class="ml-3 block text-base font-medium text-gray-700 dark:text-gray-300">
                             Manufacturer
                         </label>
                     </div>
                     <div class="flex items-center">
-                        <input id="is_manufacturer_0" name="is_manufacturer" type="radio" value="0" class="h-5 w-5 text-[#FF0000] focus:ring-[#FF0000] border-gray-300" {{ old('is_manufacturer', session('company_legal_info.is_manufacturer')) == 0 ? 'checked' : '' }}>
-                        <label for="is_manufacturer_0" class="ml-3 block text-base font-medium text-gray-700 dark:text-gray-300">
+                        <input type="checkbox" name="company_types[]" value="exporter_trader" id="type_exporter" class="h-5 w-5 text-[#FF0000] focus:ring-[#FF0000] border-gray-300 dark:border-gray-700 rounded" {{ in_array('exporter_trader', old('company_types', session('company_legal_info.company_types') ?? [])) ? 'checked' : '' }}>
+                        <label for="type_exporter" class="ml-3 block text-base font-medium text-gray-700 dark:text-gray-300">
                             Exporter/Trader
                         </label>
                     </div>
                 </div>
+                @error('company_types')
+                    <p class="mt-2 text-sm text-[#FF0000]">{{ $message }}</p>
+                @enderror
             </div>
-            
+
             <div class="mb-8">
-                <div class="block text-base font-medium text-gray-700 dark:text-gray-300 mb-4">Chamber Membership</div>
-                <div class="flex items-start">
-                    <div class="flex items-center h-6">
-                        <input id="is_chamber_member" name="is_chamber_member" type="checkbox" class="h-5 w-5 text-[#FF0000] focus:ring-[#FF0000] border-gray-300 rounded" {{ old('is_chamber_member', session('company_legal_info.is_chamber_member')) ? 'checked' : '' }}>
+                <div class="block text-base font-medium text-gray-700 dark:text-gray-300 mb-4">Chamber Memberships</div>
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <input type="checkbox" name="chamber_memberships[]" value="wtc_miami" id="chamber_wtc" class="h-5 w-5 text-[#FF0000] focus:ring-[#FF0000] border-gray-300 dark:border-gray-700 rounded" {{ in_array('wtc_miami', old('chamber_memberships', session('company_legal_info.chamber_memberships') ?? [])) ? 'checked' : '' }}>
+                        <label for="chamber_wtc" class="ml-3 block text-base font-medium text-gray-700 dark:text-gray-300">
+                            World Trade Center Miami
+                        </label>
                     </div>
-                    <div class="ml-3 text-base">
-                        <label for="is_chamber_member" class="font-medium text-gray-700 dark:text-gray-300">This company is a member of Boulder Chamber of Commerce</label>
-                        <p class="text-gray-500 dark:text-gray-400">Chamber members receive expedited processing and reduced fees.</p>
+                    <div class="flex items-center">
+                        <input type="checkbox" name="chamber_memberships[]" value="fcbf" id="chamber_fcbf" class="h-5 w-5 text-[#FF0000] focus:ring-[#FF0000] border-gray-300 dark:border-gray-700 rounded" {{ in_array('fcbf', old('chamber_memberships', session('company_legal_info.chamber_memberships') ?? [])) ? 'checked' : '' }}>
+                        <label for="chamber_fcbf" class="ml-3 block text-base font-medium text-gray-700 dark:text-gray-300">
+                            Florida Customs Brokers & Forwarders Association
+                        </label>
                     </div>
                 </div>
+                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Chamber members receive expedited processing and reduced fees.</p>
             </div>
-            
+
             <div class="flex justify-between">
                 <a href="{{ route('companies.create.basic_info') }}" class="inline-flex items-center px-5 py-3 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-base font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-transparent hover:bg-gray-50 dark:hover:bg-[#2a2a2a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF0000]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">

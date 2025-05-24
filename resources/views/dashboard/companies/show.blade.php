@@ -103,7 +103,37 @@
                             <div>
                                 <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Company Type</dt>
                                 <dd class="mt-1 text-sm text-gray-900 dark:text-white">
-                                    {{ $company->is_manufacturer ? 'Manufacturer' : 'Exporter/Trader' }}
+                                    @if($company->company_types)
+                                        <div class="space-y-1">
+                                            @foreach($company->company_types as $type)
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
+                                                    {{ $type === 'manufacturer' ? 'Manufacturer' : 'Exporter/Trader' }}
+                                                </span>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        Not specified
+                                    @endif
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Chamber Memberships</dt>
+                                <dd class="mt-1 text-sm text-gray-900 dark:text-white">
+                                    @if($company->chamber_memberships && count($company->chamber_memberships) > 0)
+                                        <div class="space-y-1">
+                                            @foreach($company->chamber_memberships as $membership)
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
+                                                    @if($membership === 'wtc_miami')
+                                                        World Trade Center Miami
+                                                    @elseif($membership === 'fcbf')
+                                                        Florida Customs Brokers & Forwarders Association
+                                                    @endif
+                                                </span>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        No chamber memberships
+                                    @endif
                                 </dd>
                             </div>
                             <div class="md:col-span-2">

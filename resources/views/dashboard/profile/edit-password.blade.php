@@ -21,7 +21,7 @@
     
     <div class="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md overflow-hidden">
         <div class="px-6 py-4 bg-gray-50 dark:bg-[#232323] border-b border-gray-200 dark:border-gray-700">
-                            <h2 class="text-lg font-medium text-gray-900 dark:text-white">Password Settings</h2>
+            <h2 class="text-lg font-medium text-gray-900 dark:text-white">Password Settings</h2>
         </div>
         <div class="px-6 py-4">
             <form action="{{ route('profile.update-password') }}" method="POST">
@@ -30,31 +30,31 @@
                 
                 <div class="mb-4">
                     <label for="current_password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Current Password</label>
-                    <input type="password" name="current_password" id="current_password" class="w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-[#2a2a2a] shadow-sm focus:border-[#FF0000] focus:ring focus:ring-[#FF0000] focus:ring-opacity-50 dark:text-white">
+                    <input type="password" name="current_password" id="current_password" class="w-full h-10 px-3 py-2 rounded-md border-gray-300 dark:border-gray-600 dark:bg-[#2a2a2a] shadow-sm focus:border-[#FF0000] focus:ring focus:ring-[#FF0000] focus:ring-opacity-50 dark:text-white" placeholder="Enter your current password">
                     @error('current_password')
                         <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                     @enderror
                 </div>
                 
                 <div class="mb-4">
-                    <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">新密码</label>
-                    <input type="password" name="password" id="password" class="w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-[#2a2a2a] shadow-sm focus:border-[#FF0000] focus:ring focus:ring-[#FF0000] focus:ring-opacity-50 dark:text-white">
+                    <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">New Password</label>
+                    <input type="password" name="password" id="password" class="w-full h-10 px-3 py-2 rounded-md border-gray-300 dark:border-gray-600 dark:bg-[#2a2a2a] shadow-sm focus:border-[#FF0000] focus:ring focus:ring-[#FF0000] focus:ring-opacity-50 dark:text-white" placeholder="Enter your new password">
                     @error('password')
                         <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                     @enderror
                 </div>
                 
                 <div class="mb-4">
-                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">确认新密码</label>
-                    <input type="password" name="password_confirmation" id="password_confirmation" class="w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-[#2a2a2a] shadow-sm focus:border-[#FF0000] focus:ring focus:ring-[#FF0000] focus:ring-opacity-50 dark:text-white">
+                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Confirm New Password</label>
+                    <input type="password" name="password_confirmation" id="password_confirmation" class="w-full h-10 px-3 py-2 rounded-md border-gray-300 dark:border-gray-600 dark:bg-[#2a2a2a] shadow-sm focus:border-[#FF0000] focus:ring focus:ring-[#FF0000] focus:ring-opacity-50 dark:text-white" placeholder="Confirm your new password">
                 </div>
                 
                 <div class="mt-6 flex justify-end">
                     <a href="{{ route('profile.show') }}" class="mr-4 inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-transparent hover:bg-gray-50 dark:hover:bg-[#2a2a2a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF0000]">
-                        取消
+                        Cancel
                     </a>
                     <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#FF0000] hover:bg-[#CC0000] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF0000]">
-                        更新密码
+                        Update Password
                     </button>
                 </div>
             </form>
@@ -62,12 +62,12 @@
     </div>
     
     <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">
-        <p>密码安全提示：</p>
+        <p>Password security tips:</p>
         <ul class="list-disc pl-5 mt-2 space-y-1">
-            <li>使用至少8个字符的强密码</li>
-            <li>包含大写字母、小写字母、数字和特殊字符</li>
-            <li>避免使用常见单词或个人信息</li>
-            <li>定期更换密码以提高安全性</li>
+            <li>Use a strong password with at least 8 characters</li>
+            <li>Include uppercase letters, lowercase letters, numbers, and special characters</li>
+            <li>Avoid using common words or personal information</li>
+            <li>Change your password regularly for security</li>
         </ul>
     </div>
 </div>
