@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('job_title')->nullable();
-            $table->string('phone');
-            $table->string('email');
-            $table->boolean('is_primary')->default(false);
-            $table->foreignId('company_id')->constrained()->onDelete('cascade');
+            $table->string('first_name')->comment('名');
+            $table->string('last_name')->comment('姓');
+            $table->string('job_title')->nullable()->comment('职位');
+            $table->string('phone')->comment('电话');
+            $table->string('email')->comment('邮箱');
+            $table->boolean('is_primary')->default(false)->comment('是否主联系人');
+            $table->unsignedBigInteger('company_id')->index()->comment('公司ID');
             $table->timestamps();
         });
     }

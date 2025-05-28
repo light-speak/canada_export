@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->index();
-            $table->string('name');
-            $table->string('street');
-            $table->string('city');
-            $table->string('state');
-            $table->string('zip');
-            $table->string('country')->default('USA');
-            $table->boolean('is_default')->default(false);
+            $table->unsignedBigInteger('user_id')->index()->comment('用户ID');
+            $table->string('name')->comment('地址名称');
+            $table->string('street')->comment('街道');
+            $table->string('city')->comment('城市');
+            $table->string('state')->comment('州');
+            $table->string('zip')->comment('邮编');
+            $table->string('country')->default('USA')->comment('国家');
+            $table->boolean('is_default')->default(false)->comment('是否默认地址');
             $table->timestamps();
         });
     }

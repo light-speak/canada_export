@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Document;
 use Illuminate\Http\Request;
 
 class GuidanceCenterController extends Controller
@@ -29,28 +30,18 @@ class GuidanceCenterController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('certificate_number');
-        
+
         // 这里是示例数据，实际应用中应当从数据库查询
         $results = [];
-        
+
         if ($query) {
-            // 模拟搜索结果
-            if (preg_match('/^\d{4,}$/', $query)) {
-                $results = [
-                    [
-                        'certificate_number' => $query,
-                        'type' => 'Export Documentation',
-                        'issue_date' => now()->subDays(rand(1, 30))->format('Y-m-d'),
-                        'status' => 'Active',
-                        'pdf_url' => '/storage/certificates/' . $query . '.pdf'
-                    ]
-                ];
-            }
+            $results = Document::query()
+                ->where('name', 'like', '%' . $query . '%')->get();
         }
-        
+
         return view('guidance-center.search', [
             'query' => $query,
             'results' => $results
         ]);
     }
-} 
+}

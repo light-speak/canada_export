@@ -13,14 +13,9 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->string('type'); // business_licence, incorporation_certificate等
-            $table->string('file_name');
-            $table->string('file_path');
-            $table->string('mime_type');
-            $table->unsignedBigInteger('size');
-            $table->timestamp('upload_date');
-            $table->foreignId('company_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('name')->comment('文档名称');
+            $table->string('type')->comment('文档类型'); // business_licence, incorporation_certificate等
+            $table->string('file_path')->comment('文件路径');
             $table->timestamps();
         });
     }

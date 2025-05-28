@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->index();
-            $table->string('name');
-            $table->string('code')->unique();
-            $table->string('manufacturer');
-            $table->text('description')->nullable();
-            $table->string('status')->default('active');
+            $table->unsignedBigInteger('user_id')->index()->comment('用户ID');
+            $table->string('name')->comment('产品名称');
+            $table->string('manufacturer')->comment('制造商');
+            $table->text('description')->nullable()->comment('描述');
+            $table->string('status')->default('active')->comment('状态');
+
+            $table->string('sku_code')->nullable()->comment('SKU码');
+            $table->string('hs_code')->nullable()->comment('HS码');
             $table->timestamps();
         });
     }

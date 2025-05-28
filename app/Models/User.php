@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * 
@@ -18,6 +19,10 @@ use Illuminate\Notifications\Notifiable;
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Address> $addresses
+ * @property-read int|null $addresses_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Certificate> $certificates
+ * @property-read int|null $certificates_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $childUsers
  * @property-read int|null $child_users_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Company> $companies
@@ -30,6 +35,8 @@ use Illuminate\Notifications\Notifiable;
  * @property-read int|null $parent_accounts_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $parentUsers
  * @property-read int|null $parent_users_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+ * @property-read int|null $products_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SubAccount> $subAccounts
  * @property-read int|null $sub_accounts_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
@@ -88,7 +95,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get the companies that belong to the user.
      */
-    public function companies()
+    public function companies(): HasMany
     {
         return $this->hasMany(Company::class);
     }
@@ -99,6 +106,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function documents()
     {
         return $this->hasMany(Document::class);
+    }
+
+    /**
+     * Get the certificates that belong to the user.
+     */
+    public function certificates()
+    {
+        return $this->hasMany(Certificate::class);
     }
     
     /**
@@ -145,5 +160,21 @@ class User extends Authenticatable implements MustVerifyEmail
             'id',        // 本地键
             'parent_id'  // SubAccount表的本地键
         );
+    }
+
+    /**
+     * Get the products that belong to the user.
+     */
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    /**
+     * Get the addresses that belong to the user.
+     */
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class);
     }
 }

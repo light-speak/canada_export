@@ -1,11 +1,16 @@
 <!-- Navigation Component -->
+<style>
+    [x-cloak] { 
+        display: none !important; 
+    }
+</style>
 <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 w-full transition-colors duration-200 
     @if(request()->is('/') || request()->is('/guidance-center/export-documentation') || request()->is('/guidance-center/legality') || request()->is('/guidance-center/trade-center')) 
         bg-transparent
     @else 
         bg-white/95 dark:bg-[#1a1a1a]/95 backdrop-blur-sm 
     @endif" 
-    x-data="{ mobileOpen: false, searchOpen: false }">
+    x-data="{ mobileOpen: false, searchOpen: false }" x-cloak>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Certificate Verification Bar - 只在移动端显示 -->
         <div x-show="searchOpen" x-transition class="md:hidden absolute inset-x-0 top-0 bg-white dark:bg-[#232323] shadow-md z-50 p-4">
@@ -104,7 +109,13 @@
                     </button>
                     <div 
                         x-show="profileOpen" 
-                        x-transition 
+                        x-cloak
+                        x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0 transform scale-95"
+                        x-transition:enter-end="opacity-100 transform scale-100"
+                        x-transition:leave="transition ease-in duration-75"
+                        x-transition:leave-start="opacity-100 transform scale-100"
+                        x-transition:leave-end="opacity-0 transform scale-95"
                         @click.away="profileOpen = false"
                         class="absolute right-0 w-48 mt-2 py-2 bg-white dark:bg-[#232323] rounded-md shadow-lg z-50"
                     >
@@ -196,7 +207,6 @@
     </div>
 </nav>
 
-<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const nav = document.getElementById('main-nav');

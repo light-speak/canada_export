@@ -11,14 +11,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * 
  *
  * @property int $id
- * @property int $user_id
- * @property string $name
- * @property string $street
- * @property string $city
- * @property string $state
- * @property string $zip
- * @property string $country
- * @property bool $is_default
+ * @property int $user_id 用户ID
+ * @property string $name 地址名称
+ * @property string $street 街道
+ * @property string $city 城市
+ * @property string $state 州
+ * @property string $zip 邮编
+ * @property string $country 国家
+ * @property bool $is_default 是否默认地址
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Certificate> $certificates

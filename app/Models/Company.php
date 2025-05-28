@@ -9,20 +9,20 @@ use Illuminate\Database\Eloquent\Model;
  * 
  *
  * @property int $id
- * @property string $name
- * @property string|null $website
- * @property string $registered_address
- * @property string|null $building_suite
- * @property string|null $operations_address
- * @property string|null $business_licence_number
- * @property \Illuminate\Support\Carbon|null $licence_expiry_date
- * @property string|null $incorporation_id
- * @property array<array-key, mixed>|null $company_types
- * @property array<array-key, mixed>|null $chamber_memberships
- * @property string $status
- * @property string|null $rejection_reason
- * @property int $user_id
- * @property string|null $approval_date
+ * @property string $name 公司名称
+ * @property string|null $website 公司网站
+ * @property string $registered_address 注册地址
+ * @property string|null $building_suite 楼层房间号
+ * @property string|null $operations_address 运营地址
+ * @property string|null $business_licence_number 营业执照号
+ * @property \Illuminate\Support\Carbon|null $licence_expiry_date 营业执照到期日期
+ * @property string|null $incorporation_id 公司注册号
+ * @property string $status 状态
+ * @property int $user_id 用户ID
+ * @property string|null $approval_date 批准日期
+ * @property string|null $rejection_reason 拒绝原因
+ * @property array<array-key, mixed>|null $company_types 公司类型
+ * @property array<array-key, mixed>|null $chamber_memberships 商会会员
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Certificate> $certificates
@@ -32,7 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents
  * @property-read int|null $documents_count
  * @property-read \App\Models\Contact|null $primaryContact
- * @property-read \App\Models\User $user
+ * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Company newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Company newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Company query()

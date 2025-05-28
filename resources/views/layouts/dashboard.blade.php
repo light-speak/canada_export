@@ -43,11 +43,6 @@
                         x-bind:class="sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'" 
                         class="bg-white dark:bg-[#1a1a1a] w-64 fixed h-screen z-10 shadow-lg overflow-y-auto transition-transform duration-300 ease-in-out md:relative md:translate-x-0 pt-6 pb-8"
                     >
-                        <div class="px-4 py-2 mb-4 border-b border-gray-200 dark:border-gray-700">
-                            <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Console</h2>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">Export Management System</p>
-                        </div>
-
                         <nav class="px-4 pb-4">
                             <div class="mb-6">
                                 <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
@@ -71,11 +66,27 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="{{ route('products.index') }}" class="flex items-center px-3 py-2 text-sm rounded-lg {{ request()->routeIs('products.*') ? 'bg-[#FF0000]/10 text-[#FF0000] font-medium' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800' }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                                            </svg>
+                                            Products
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="{{ route('certificates.index') }}" class="flex items-center px-3 py-2 text-sm rounded-lg {{ request()->routeIs('certificates.*') ? 'bg-[#FF0000]/10 text-[#FF0000] font-medium' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800' }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                             </svg>
                                             Certificates
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('addresses.index') }}" class="flex items-center px-3 py-2 text-sm rounded-lg {{ request()->routeIs('addresses.*') ? 'bg-[#FF0000]/10 text-[#FF0000] font-medium' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800' }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                            </svg>
+                                            Addresses
                                         </a>
                                     </li>
                                     <li>

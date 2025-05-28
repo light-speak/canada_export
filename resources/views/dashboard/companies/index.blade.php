@@ -52,6 +52,10 @@
             <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
                 <span class="font-medium">{{ $company->documents->count() }}</span> document(s) uploaded
             </p>
+            @else
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                <span class="font-medium">0</span> document(s) uploaded
+            </p>
             @endif
             
             <div class="mt-4">

@@ -11,19 +11,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * 
  *
  * @property int $id
- * @property int $user_id
- * @property int $address_id
- * @property string $destination_country
- * @property string $certificate_type
- * @property string $purpose
- * @property int $copies
- * @property string $language
- * @property bool $is_manufacturer
- * @property string $invoice_path
- * @property string $manufacturing_statement_path
- * @property string $delivery_type
- * @property string $shipping_method
- * @property string $status
+ * @property int $user_id 用户ID
+ * @property int $address_id 地址ID
+ * @property string $destination_country 目的地国家
+ * @property string $certificate_type 证书类型
+ * @property string $purpose 用途
+ * @property int $copies 副本数量
+ * @property string $language 语言
+ * @property bool $is_manufacturer 是否制造商
+ * @property string $invoice_path 发票路径
+ * @property string $manufacturing_statement_path 制造声明路径
+ * @property string $delivery_type 交货类型
+ * @property string $shipping_method 运输方式
+ * @property string $status 状态
+ * @property string|null $form_data 表单数据
+ * @property int $current_step 当前步骤
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Address|null $address
@@ -37,8 +39,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Certificate whereCertificateType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Certificate whereCopies($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Certificate whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certificate whereCurrentStep($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Certificate whereDeliveryType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Certificate whereDestinationCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certificate whereFormData($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Certificate whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Certificate whereInvoicePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Certificate whereIsManufacturer($value)

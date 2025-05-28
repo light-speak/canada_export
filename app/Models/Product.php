@@ -11,12 +11,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * 
  *
  * @property int $id
- * @property int $user_id
- * @property string $name
- * @property string $code
- * @property string $manufacturer
- * @property string|null $description
- * @property string $status
+ * @property int $user_id 用户ID
+ * @property string $name 产品名称
+ * @property string $manufacturer 制造商
+ * @property string|null $description 描述
+ * @property string $status 状态
+ * @property string|null $sku_code SKU码
+ * @property string|null $hs_code HS码
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Certificate> $certificates
@@ -25,12 +26,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereHsCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereManufacturer($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereSkuCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereUserId($value)
@@ -48,7 +50,8 @@ class Product extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'code',
+        'sku_code',
+        'hs_code',
         'manufacturer',
         'description',
         'status',

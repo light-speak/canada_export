@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('sub_accounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('parent_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->unsignedBigInteger('parent_id')->index();
+            $table->unsignedBigInteger('user_id')->index();
             $table->string('role')->default('user'); // 可以是 'user', 'admin', 'readonly' 等
             $table->text('permissions')->nullable(); // JSON 格式存储的特定权限
             $table->boolean('is_active')->default(true);

@@ -13,19 +13,21 @@ return new class extends Migration
     {
         Schema::create('certificates', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('address_id')->index();
-            $table->string('destination_country');
-            $table->string('certificate_type');
-            $table->text('purpose');
-            $table->integer('copies')->default(1);
-            $table->string('language')->default('english');
-            $table->boolean('is_manufacturer')->default(false);
-            $table->string('invoice_path');
-            $table->string('manufacturing_statement_path');
-            $table->string('delivery_type');
-            $table->string('shipping_method');
-            $table->string('status')->default('pending_payment');
+            $table->unsignedBigInteger('user_id')->index()->comment('用户ID');
+            $table->unsignedBigInteger('address_id')->index()->comment('地址ID');
+            $table->string('destination_country')->comment('目的地国家');
+            $table->string('certificate_type')->comment('证书类型');
+            $table->text('purpose')->comment('用途');
+            $table->integer('copies')->default(1)->comment('副本数量');
+            $table->string('language')->default('english')->comment('语言');
+            $table->boolean('is_manufacturer')->default(false)->comment('是否制造商');
+            $table->string('invoice_path')->comment('发票路径');
+            $table->string('manufacturing_statement_path')->comment('制造声明路径');
+            $table->string('delivery_type')->comment('交货类型');
+            $table->string('shipping_method')->comment('运输方式');
+            $table->string('status')->default('pending_payment')->comment('状态');
+            $table->json('form_data')->nullable()->comment('表单数据'); // 存储表单数据
+            $table->integer('current_step')->default(1)->comment('当前步骤'); // 当前步骤
             $table->timestamps();
         });
 

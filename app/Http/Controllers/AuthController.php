@@ -36,13 +36,16 @@ class AuthController extends Controller
 
     // 显示注册页面
     public function showRegister()
-    {
-        return view('auth.register');
+    { 
+        return view('auth.maintenance');
+        // return view('auth.register');
     }
 
     // 处理注册请求
     public function register(Request $request)
     {
+        return redirect()->route('register')->with('error', 'Registration is currently closed.');
+
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],

@@ -25,6 +25,7 @@ class CheckRole
             return redirect('login');
         }
 
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         
         // 检查用户是否是子账户
@@ -32,6 +33,7 @@ class CheckRole
         
         if ($isSubAccount) {
             // 获取子账户信息
+            /** @var \App\Models\SubAccount $subAccount */
             $subAccount = $user->parentAccounts()->first();
             
             // 检查子账户的角色是否在允许的角色列表中

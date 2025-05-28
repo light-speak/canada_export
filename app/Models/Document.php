@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,37 +10,26 @@ use Illuminate\Database\Eloquent\Model;
  * 
  *
  * @property int $id
- * @property string $type
- * @property string $file_name
- * @property string $file_path
- * @property string $mime_type
- * @property int $size
- * @property \Illuminate\Support\Carbon $upload_date
- * @property int $company_id
- * @property int $user_id
+ * @property string $name 文档名称
+ * @property string $type 文档类型
+ * @property string $file_path 文件路径
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Company $company
- * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereCompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereFileName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereFilePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereMimeType($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereSize($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereUploadDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereUserId($value)
  * @mixin \Eloquent
  */
 class Document extends Model
 {
     use HasFactory;
+    use HasDateTimeFormatter;
 
     /**
      * The attributes that are mass assignable.
@@ -47,39 +37,23 @@ class Document extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'name',             // 文档名称
         'type',             // 文档类型：business_licence, incorporation_certificate 等
-        'file_name',        // 文件名
         'file_path',        // 文件路径
-        'mime_type',        // MIME类型
-        'size',             // 文件大小
-        'upload_date',      // 上传日期
-        'company_id',       // 所属公司
-        'user_id'           // 上传者
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'upload_date' => 'datetime',
-        'size' => 'integer'
+    public const TYPE_OPTIONS = [
+        'business_licence' => 'Business Licence',
+        'incorporation_certificate' => 'Incorporation Certificate',
+        'invoice' => 'Invoice',
+        'manufacturing_statement' => 'Manufacturing Statement',
+        'gmp_certificate' => 'GMP Certificate',
+        'manufacturing_licence' => 'Manufacturing Licence',
+        'certificate' => 'Certificate',
     ];
 
-    /**
-     * Get the company that owns the document.
-     */
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
-    }
+    public const ENABLE_TYPES = [
+        'certificate' => 'Certificate',
+    ];
 
-    /**
-     * Get the user that uploaded the document.
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 } 

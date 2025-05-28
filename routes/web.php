@@ -9,6 +9,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BillingController;
+use App\Http\Controllers\AddressController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -37,8 +40,26 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 // Dashboard Routes
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/console', [DashboardController::class, 'index'])->name('console');
+    
+    // Address routes
+    Route::resource('addresses', AddressController::class);
+    
+    // Billing Routes
+    Route::prefix('billing')->name('billing.')->group(function () {
+        Route::get('/', [BillingController::class, 'index'])->name('index');
+        Route::get('/create', [BillingController::class, 'create'])->name('create');
+        Route::post('/', [BillingController::class, 'store'])->name('store');
+        Route::get('/{bill}', [BillingController::class, 'show'])->name('show');
+    });
+    
+    // Products Management
+    Route::prefix('products')->name('products.')->group(function () {
+        Route::get('/', [ProductController::class, 'index'])->name('index');
+        Route::post('/', [ProductController::class, 'store'])->name('store');
+        Route::delete('/{product}', [ProductController::class, 'destroy'])->name('destroy');
+    });
     
     // Company Management Routes
     Route::prefix('companies')->name('companies.')->group(function () {
@@ -90,6 +111,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::delete('/sub-accounts/{subAccount}', [ProfileController::class, 'destroySubAccount'])->name('destroy-sub-account');
         });
     });
+    
+    // Product API Routes
+    Route::post('/api/products', [ProductController::class, 'store'])->name('api.products.store');
 });
 
 // Guidance Center Routes
@@ -107,6 +131,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     // Certificate Creation Flow
     Route::prefix('certificates')->name('certificates.')->group(function () {
+        // 恢复草稿路由
+        Route::get('/drafts/{certificate}/resume', [CertificateController::class, 'resumeDraft'])->name('resume_draft');
+        
         Route::get('/create/basic-info', [CertificateController::class, 'createBasicInfo'])->name('create.basic_info');
         Route::post('/create/basic-info', [CertificateController::class, 'storeBasicInfo'])->name('store.basic_info');
         
@@ -123,7 +150,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/create/delivery', [CertificateController::class, 'storeDelivery'])->name('store.delivery');
         
         Route::get('/create/summary', [CertificateController::class, 'createSummary'])->name('create.summary');
-        Route::post('/create', [CertificateController::class, 'store'])->name('store');
+        Route::post('/create/summary', [CertificateController::class, 'storeSummary'])->name('store.summary');
     });
     
     Route::get('/certificates/{certificate}', [CertificateController::class, 'show'])->name('certificates.show');

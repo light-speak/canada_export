@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $is_active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User $parent
- * @property-read \App\Models\User $user
+ * @property-read \App\Models\User|null $parent
+ * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SubAccount newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SubAccount newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SubAccount query()

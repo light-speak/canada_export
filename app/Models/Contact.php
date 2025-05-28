@@ -9,16 +9,16 @@ use Illuminate\Database\Eloquent\Model;
  * 
  *
  * @property int $id
- * @property string $first_name
- * @property string $last_name
- * @property string|null $job_title
- * @property string $phone
- * @property string $email
- * @property bool $is_primary
- * @property int $company_id
+ * @property string $first_name 名
+ * @property string $last_name 姓
+ * @property string|null $job_title 职位
+ * @property string $phone 电话
+ * @property string $email 邮箱
+ * @property bool $is_primary 是否主联系人
+ * @property int $company_id 公司ID
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Company $company
+ * @property-read \App\Models\Company|null $company
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Contact newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Contact newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Contact query()

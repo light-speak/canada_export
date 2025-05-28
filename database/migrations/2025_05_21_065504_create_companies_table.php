@@ -15,24 +15,25 @@ return new class extends Migration
             $table->id();
             
             // 基本信息
-            $table->string('name');
-            $table->string('website')->nullable();
-            $table->text('registered_address');
-            $table->string('building_suite')->nullable();
-            $table->text('operations_address')->nullable();
+            $table->string('name')->comment('公司名称');
+            $table->string('website')->nullable()->comment('公司网站');
+            $table->text('registered_address')->comment('注册地址');
+            $table->string('building_suite')->nullable()->comment('楼层房间号');
+            $table->text('operations_address')->nullable()->comment('运营地址');
             
             // 法律信息
-            $table->string('business_licence_number')->nullable();
-            $table->date('licence_expiry_date')->nullable();
-            $table->string('incorporation_id')->nullable();
-            $table->boolean('is_manufacturer')->default(false);
-            $table->boolean('is_chamber_member')->default(false);
+            $table->string('business_licence_number')->nullable()->comment('营业执照号');
+            $table->date('licence_expiry_date')->nullable()->comment('营业执照到期日期');
+            $table->string('incorporation_id')->nullable()->comment('公司注册号');
             
             // 其他信息
-            $table->string('chamber_name')->default('Boulder Chamber of Commerce');
-            $table->string('status')->default('pending'); // pending, approved, rejected
-            $table->foreignId('user_id')->constrained();
-            $table->date('approval_date')->nullable();
+            $table->string('status')->default('pending')->comment('状态'); // pending, approved, rejected
+            $table->unsignedBigInteger('user_id')->index()->comment('用户ID');
+            $table->date('approval_date')->nullable()->comment('批准日期');
+            $table->text('rejection_reason')->nullable()->comment('拒绝原因');
+
+            $table->json('company_types')->nullable()->comment('公司类型');
+            $table->json('chamber_memberships')->nullable()->comment('商会会员');
             
             $table->timestamps();
         });
