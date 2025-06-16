@@ -79,7 +79,7 @@ class DocumentController extends BaseAdminController
             $form->file('file_path', '上传文件')
                 ->autoUpload()
                 ->uniqueName()
-                ->disk('local');
+                ->disk('');
         });
     }
 }

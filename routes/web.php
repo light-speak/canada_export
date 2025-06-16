@@ -123,6 +123,8 @@ Route::prefix('guidance-center')->group(function () {
     Route::get('/legality', [GuidanceCenterController::class, 'legality'])->name('guidance-center.legality');
     Route::get('/trade-center', [GuidanceCenterController::class, 'tradeCenter'])->name('guidance-center.trade-center');
     Route::get('/search', [GuidanceCenterController::class, 'search'])->name('guidance-center.search');
+    Route::get('/download/{id}', [GuidanceCenterController::class, 'download'])->name('guidance-center.download');
+    Route::get('/preview/{id}', [GuidanceCenterController::class, 'preview'])->name('guidance-center.preview');
 });
 
 // Certificate Routes
