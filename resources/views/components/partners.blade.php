@@ -15,7 +15,7 @@
                 CanadaExport was designed and built in partnership with industry experts with years of experience issuing export documentation, giving us insight into regulatory requirements and compliance in a wide array of industries. Coupled with our team's expertise and experience working with foreign governments, global regulatory and health agencies and freight forwarders, CanadaExport is changing the way we manage export documentation.
             </p>
         </div>
-
+{{-- 
         <div class="mt-16 grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4">
             <!-- Partner logos would go here -->
             <div class="col-span-1 flex justify-center items-center">
@@ -42,6 +42,6 @@
             <div class="col-span-1 flex justify-center items-center">
                 <div class="h-12 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </section> 
