@@ -28,8 +28,7 @@
             secondaryButtonUrl="#about"
         />
 
-        <!-- About Section -->
-        <x-about />
+
 
         <!-- How It Works Section -->
         <x-how-it-works />
@@ -37,18 +36,13 @@
         <!-- Features Section -->
         <x-features />
 
-        <!-- Mobile Certificate Search Section -->
-        <section class="py-12 bg-gray-50 dark:bg-[#0a0a0a]">
-            <x-mobile-certificate-search 
-                title="Already Have a Certificate?"
-                description="Verify your certificate's authenticity instantly"
-                placeholder="Enter your certificate number"
-                buttonText="Verify Now"
-            />
-        </section>
+
+        <!-- About Section -->
+        <x-about />
 
         <!-- Partners Section -->
         <x-partners />
+
 
         <!-- Footer -->
         <x-footer />
