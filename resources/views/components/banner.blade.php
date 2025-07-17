@@ -44,6 +44,14 @@
             @endif
         </div>
 
+        <!-- Verify Certification Search - 极简风格，仅首页显示 -->
+        <div class="mt-10 flex justify-center">
+            <form action="{{ route('guidance-center.search') }}" method="GET" class="w-full max-w-lg flex gap-2">
+                <input type="text" name="certificate_number" placeholder="Enter the Certificate Number" class="flex-1 px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#FF0000] focus:border-[#FF0000] bg-white text-gray-900 text-base shadow-sm transition-all" required />
+                <button type="submit" class="px-6 py-3 rounded-md bg-[#FF0000] hover:bg-[#CC0000] text-white font-semibold transition-colors text-base shadow-sm">Validate</button>
+            </form>
+        </div>
+
         <!-- Mobile Certificate Search - Only visible on mobile -->
         <div class="mt-8 md:hidden">
             <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">

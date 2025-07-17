@@ -28,6 +28,8 @@
             secondaryButtonUrl="#about"
         />
 
+        <!-- Verify Certification Section -->
+        <!-- 已移入Banner区，原位置删除 -->
 
 
         <!-- How It Works Section -->

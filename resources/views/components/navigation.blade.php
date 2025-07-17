@@ -77,12 +77,7 @@
                 <a href="{{ route('guidance-center.trade-center') }}" class="header-link transition-colors">
                     Trade Center
                 </a>
-                <a href="#features" class="header-link transition-colors">
-                    Press
-                </a>
-                <a href="/Contact" class="header-link transition-colors">
-                    Contact
-                </a>
+                <!-- Press 菜单项已删除 -->
                 
                 @guest
                 <a href="/login" class="header-link transition-colors">
@@ -178,8 +173,7 @@
             <a href="{{ route('guidance-center.export-documentation') }}" class="header-link mobile-menu-link mt-8" @click="mobileOpen = false">Document Center</a>
             <a href="{{ route('guidance-center.legality') }}" class="header-link mobile-menu-link" @click="mobileOpen = false">Legality</a>
             <a href="{{ route('guidance-center.trade-center') }}" class="header-link mobile-menu-link" @click="mobileOpen = false">Trade Center</a>
-            <a href="#features" class="header-link mobile-menu-link" @click="mobileOpen = false">Press</a>
-            <a href="/Contact" class="header-link mobile-menu-link" @click="mobileOpen = false">Contact</a>
+            <!-- Press 菜单项已删除 -->
             
             @guest
             <a href="/login" class="header-link mobile-menu-link" @click="mobileOpen = false">Sign In</a>
